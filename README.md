@@ -55,3 +55,11 @@ If using G2D (A10/A20), make sure to have write access to `/dev/g2d`.
 * Output bypasses X video driver by opening own disp layers. You can't use Xv from fbturbo at the same time, and on H3 the video is always on top and can't be overlapped by other windows.
 * OSD partly breaks X11 integration due to hardware limitations. The video area can't be overlapped by other windows. For fullscreen use this is no problem.
 * There is no [OpenGL interoperation feature] (https://www.opengl.org/registry/specs/NV/vdpau_interop.txt) because we are on ARM and only have OpenGL/ES available.
+
+# Orange Pi Zero
+
+This is libvdpau-sunxi adapted for the OrangePi Zero (which uses screen1,
+while the original library is hardcoded to screen0).
+Mainly [this patch](https://github.com/linux-sunxi/libvdpau-sunxi/pull/20)
+with some cargo cult programming added.
+
