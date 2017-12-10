@@ -1,9 +1,9 @@
 # About
 
-libvdpau-sunxi is a [VDPAU] (ftp://download.nvidia.com/XFree86/vdpau/doxygen/html/index.html) backend driver
+libvdpau-sunxi is a [VDPAU](ftp://download.nvidia.com/XFree86/vdpau/doxygen/html/index.html) backend driver
 for Allwinner based (sunxi) SoCs.
 
-It is based on the [reverse engineering effort] (http://linux-sunxi.org/Cedrus) of the [linux-sunxi] (http://linux-sunxi.org) community.
+It is based on the [reverse engineering effort](http://linux-sunxi.org/Cedrus) of the [linux-sunxi](http://linux-sunxi.org) community.
 It does neither depend on code, which was released by Allwinner, nor does it act like a wrapper around some precompiled binary libraries.
 libvdpau-sunxi is a clean implementation, that is based on reverse engineering.
 
@@ -54,7 +54,7 @@ If using G2D (A10/A20), make sure to have write access to `/dev/g2d`.
 
 * Output bypasses X video driver by opening own disp layers. You can't use Xv from fbturbo at the same time, and on H3 the video is always on top and can't be overlapped by other windows.
 * OSD partly breaks X11 integration due to hardware limitations. The video area can't be overlapped by other windows. For fullscreen use this is no problem.
-* There is no [OpenGL interoperation feature] (https://www.opengl.org/registry/specs/NV/vdpau_interop.txt) because we are on ARM and only have OpenGL/ES available.
+* There is no [OpenGL interoperation feature](https://www.opengl.org/registry/specs/NV/vdpau_interop.txt) because we are on ARM and only have OpenGL/ES available.
 
 # Orange Pi Zero
 
