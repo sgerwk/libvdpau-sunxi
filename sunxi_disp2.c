@@ -27,6 +27,8 @@
 #include "vdpau_private.h"
 #include "sunxi_disp.h"
 
+#define SCREEN_NO 1
+
 struct sunxi_disp2_private
 {
 	struct sunxi_disp pub;
@@ -51,7 +53,7 @@ struct sunxi_disp *sunxi_disp2_open(int osd_enabled)
 	if (disp->fd == -1)
 		goto err_open;
 
-	unsigned long args[4] = { 0, (unsigned long)(&disp->video_config), 1, 0 };
+	unsigned long args[4] = { SCREEN_NO, (unsigned long)(&disp->video_config), 1, 0 };
 
 	disp->video_config.info.mode = LAYER_MODE_BUFFER;
 	disp->video_config.info.alpha_mode = 1;
@@ -72,7 +74,7 @@ struct sunxi_disp *sunxi_disp2_open(int osd_enabled)
 		disp->osd_config.info.alpha_value = 255;
 
 		disp->osd_config.enable = 0;
-		disp->osd_config.channel = 2;
+		disp->osd_config.channel = 2 - SCREEN_NO;
 		disp->osd_config.layer_id = 0;
 		disp->osd_config.info.zorder = 2;
 
@@ -102,7 +104,7 @@ static void sunxi_disp2_close(struct sunxi_disp *sunxi_disp)
 {
 	struct sunxi_disp2_private *disp = (struct sunxi_disp2_private *)sunxi_disp;
 
-	unsigned long args[4] = { 0, (unsigned long)(&disp->video_config), 1, 0 };
+	unsigned long args[4] = { SCREEN_NO, (unsigned long)(&disp->video_config), 1, 0 };
 
 	disp->video_config.enable = 0;
 	ioctl(disp->fd, DISP_LAYER_SET_CONFIG, args);
@@ -160,7 +162,7 @@ static int sunxi_disp2_set_video_layer(struct sunxi_disp *sunxi_disp, int x, int
 
 	clip (&src, &scn, disp->screen_width);
 
-	unsigned long args[4] = { 0, (unsigned long)(&disp->video_config), 1, 0 };
+	unsigned long args[4] = { SCREEN_NO, (unsigned long)(&disp->video_config), 1, 0 };
 	switch (surface->vs->source_format)
 	{
 	case VDP_YCBCR_FORMAT_YUYV:
@@ -209,7 +211,7 @@ static void sunxi_disp2_close_video_layer(struct sunxi_disp *sunxi_disp)
 {
 	struct sunxi_disp2_private *disp = (struct sunxi_disp2_private *)sunxi_disp;
 
-	unsigned long args[4] = { 0, (unsigned long)(&disp->video_config), 1, 0 };
+	unsigned long args[4] = { SCREEN_NO, (unsigned long)(&disp->video_config), 1, 0 };
 
 	disp->video_config.enable = 0;
 
@@ -220,7 +222,7 @@ static int sunxi_disp2_set_osd_layer(struct sunxi_disp *sunxi_disp, int x, int y
 {
 	struct sunxi_disp2_private *disp = (struct sunxi_disp2_private *)sunxi_disp;
 
-	unsigned long args[4] = { 0, (unsigned long)(&disp->osd_config), 1, 0 };
+	unsigned long args[4] = { SCREEN_NO, (unsigned long)(&disp->osd_config), 1, 0 };
 
 	disp_rect src = { .x = surface->rgba.dirty.x0, .y = surface->rgba.dirty.y0,
 			  .width = surface->rgba.dirty.x1 - surface->rgba.dirty.x0,
@@ -263,7 +265,7 @@ static void sunxi_disp2_close_osd_layer(struct sunxi_disp *sunxi_disp)
 {
 	struct sunxi_disp2_private *disp = (struct sunxi_disp2_private *)sunxi_disp;
 
-	unsigned long args[4] = { 0, (unsigned long)(&disp->osd_config), 1, 0 };
+	unsigned long args[4] = { SCREEN_NO, (unsigned long)(&disp->osd_config), 1, 0 };
 
 	disp->osd_config.enable = 0;
 
